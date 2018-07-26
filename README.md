@@ -1,2 +1,0 @@
-# BCT-OPC
-bootcamp
