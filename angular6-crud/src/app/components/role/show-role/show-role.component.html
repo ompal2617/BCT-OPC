@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Role Details</h2>
+  <p>User Roles List:</p>
+  <button type="button" class="btn btn-primary" (click)="openModal(roleTemplate)">Create template modal</button>       
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ROLE</th> 
+        <th>ACTION</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roleList">
+        <td>{{ role.id }}</td>
+        <td>{{ role.role }}</td>
+        <td>
+          <a (click)="deleteRole(role)"> <span class="glyphicon glyphicon-trash"></span> </a> 
+          <a (click)="editRole(roleTemplate,role)"> <span class="glyphicon glyphicon-pencil"></span> </a> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #roleTemplate>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Role</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="roleForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="role">Role Name:</label>
+                <div class="col-sm-6">
+                  <input type="test" class="form-control" formControlName="role"  id="role" placeholder="Enter role">
+                </div>
+              </div>
+              <div class="form-group">        
+                <div class="col-sm-offset-2 col-sm-6">
+                  <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+              </div>
+            </form>
+      </div>
+    </ng-template>
+</div>
