@@ -12,31 +12,30 @@ import org.springframework.stereotype.Repository;
 @Repository("genericDao")
 @Transactional
 public class GenericDaoImpl<T> implements IGenericDao<T> {
- 
 
 	@PersistenceContext
-	EntityManager entityManager; 
-	 
-	
+	EntityManager entityManager;
+
 	@Override
-	public T find(final T entity,Long id) {
-		return (T) entityManager.find(entity.getClass(), id);
+	public T find(final T entity, Long id, String condition) {
+		if (condition.isEmpty() || condition == null) {
+			return (T) entityManager.find(entity.getClass(), id);
+		} else {
+			return (T) entityManager.createQuery("from " + entity.getClass().getName() + "  " + condition)
+					.getSingleResult();
+		}
+
 	}
 
 	@Override
-	public T find(final T entity,String condition) {
-		
-		return (T) entityManager.createQuery("from " + entity.getClass().getName() + " " + condition).getSingleResult();
-	}
+	public List<T> fetchAll(final T entity, String condition) {
+		if (condition.isEmpty() || condition == null) {
+			return (List<T>) entityManager.createQuery("from " + entity.getClass().getName()).getResultList();
+		} else {
+			return (List<T>) entityManager.createQuery("from " + entity.getClass().getName() + " " + condition)
+					.getResultList();
+		}
 
-	@Override
-	public List<T> fetchAll(final T entity) {  
-		return (List<T>) entityManager.createQuery("from " + entity.getClass().getName()).getResultList();
-	}
-
-	@Override
-	public List<T> fetchAll(final T entity,String condition) { 
-		return (List<T>) entityManager.createQuery("from " + entity.getClass().getName() + " " + condition).getResultList();
 	}
 
 	@Override

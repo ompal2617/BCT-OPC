@@ -12,22 +12,13 @@ public class GenericServiceImpl<T> implements IGenericService<T> {
 
 	@Autowired
 	private IGenericDao<T> iGenericDao;
+ 
 
 	@Override
-	public T find(final T entity,Long id) { 
-		return iGenericDao.find(entity,id);
+	public T find(final T entity,Long id,String condition) { 
+		return iGenericDao.find(entity,id,condition);
 	}
-
-	@Override
-	public T find(final T entity,String condition) { 
-		return iGenericDao.find(entity,condition);
-	}
-
-	@Override
-	public List<T> fetchAll(final T entity) { 
-		return iGenericDao.fetchAll(entity);
-	}
-
+ 
 	@Override
 	public List<T> fetchAll(final T entity,String condition) { 
 		return iGenericDao.fetchAll(entity,condition);

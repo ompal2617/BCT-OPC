@@ -29,7 +29,7 @@ public class UserController {
 
 	@GetMapping() 
 	public ResponseEntity<?> getUsersDetails(Users users) {
-		List<Users> listUsers = iGenericServicUsers.fetchAll(users);
+		List<Users> listUsers = iGenericServicUsers.fetchAll(users," order by id DESC");
 		if (listUsers.isEmpty()) {
 			return new ResponseEntity<>("NO user details found!", HttpStatus.NO_CONTENT);
 		}
@@ -40,7 +40,7 @@ public class UserController {
 	@GetMapping("/{id}") 
 	public ResponseEntity<?> getUserById(Users user,@PathVariable String id) { 
 		try {
-			user = iGenericServicUsers.find(new Users(), Long.parseLong(id));
+			user = iGenericServicUsers.find(new Users(), Long.parseLong(id),null);
 		} catch (NumberFormatException e) {
 			return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -82,7 +82,7 @@ public class UserController {
 	@DeleteMapping("/{id}") 
 	public ResponseEntity<?> deleteUser(Users user,@PathVariable String id) { 
 		try {
-			user = iGenericServicUsers.find(new Users(), Long.parseLong(id));
+			user = iGenericServicUsers.find(new Users(), Long.parseLong(id),null);
 		} catch (NumberFormatException e) {
 			return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

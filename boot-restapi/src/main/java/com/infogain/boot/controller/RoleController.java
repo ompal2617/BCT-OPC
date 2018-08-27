@@ -31,7 +31,7 @@ public class RoleController {
 
 	@GetMapping()
 	public ResponseEntity<?> getAllRole() {
-		List<Role> listRole = iGenericServicRole.fetchAll(new Role());
+		List<Role> listRole = iGenericServicRole.fetchAll(new Role()," order by id DESC");
 		if (listRole.isEmpty()) {
 			return new ResponseEntity<>("NO role found!", HttpStatus.NO_CONTENT);
 		}
@@ -46,7 +46,7 @@ public class RoleController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getRoleById(Role role, @PathVariable String id) {
 		try {
-			role = iGenericServicRole.find(new Role(), Long.parseLong(id));
+			role = iGenericServicRole.find(new Role(), Long.parseLong(id),"");
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -68,7 +68,6 @@ public class RoleController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	@PutMapping()
@@ -89,7 +88,7 @@ public class RoleController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRole(Role role ,@PathVariable String id) {
 		try {
-			role = iGenericServicRole.find(new Role(), Long.parseLong(id));
+			role = iGenericServicRole.find(new Role(), Long.parseLong(id),"");
 		} catch (NumberFormatException e) {
 			return new ResponseEntity<>(e.getCause().getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
