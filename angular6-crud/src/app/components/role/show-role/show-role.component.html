@@ -2,6 +2,7 @@
   <h2>Role Details</h2>
   <p>User Roles List:</p>
   <button type="button" class="btn btn-primary" (click)="openModal(roleTemplate)">Create template modal</button>       
+  <div>{{error}}</div>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -15,7 +16,7 @@
         <td>{{ role.id }}</td>
         <td>{{ role.role }}</td>
         <td>
-          <a (click)="deleteRole(role)"> <span class="glyphicon glyphicon-trash"></span> </a> 
+          <a (click)="deleteRole(role.id)"> <span class="glyphicon glyphicon-trash" style="color: red;"></span> </a> &nbsp;&nbsp; 
           <a (click)="editRole(roleTemplate,role)"> <span class="glyphicon glyphicon-pencil"></span> </a> 
         </td>
       </tr>
@@ -38,8 +39,9 @@
                 </div>
               </div>
               <div class="form-group">        
-                <div class="col-sm-offset-2 col-sm-6">
-                  <button type="submit" class="btn btn-primary">Create</button>
+                <div class="col-sm-offset-3 col-sm-6">
+                  <button type="submit" class="btn btn-primary" *ngIf="!isUpdated">Create</button>                
+                  <button type="submit" class="btn btn-primary" *ngIf="isUpdated">Update</button>                
                 </div>
               </div>
             </form>

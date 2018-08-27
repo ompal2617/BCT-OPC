@@ -13,8 +13,7 @@ export class RoleService {
 
   constructor(private http: HttpClient) { }
 
-  getRoles() {
-    debugger 
+  getRoles() { 
     return this.http.get<Role[]>(this.roleUrl);
   }
 
